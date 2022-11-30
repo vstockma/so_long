@@ -14,5 +14,11 @@
 
 void    ft_path(t_var *vars)
 {
+    int i;
 
+    i = 0;
+    while(vars->arr[i] != NULL)
+    {
+        i++;
+    }
 }
