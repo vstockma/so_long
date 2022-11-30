@@ -12,7 +12,7 @@
 
 NAME = so_long.out
 
-SRC = so_long.c error_check.c error_message.c
+SRC = so_long.c error_check.c error_message.c pathfinding.c
 
 OBJ = $(SRC:.c=.o)
 

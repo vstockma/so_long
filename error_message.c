@@ -29,3 +29,18 @@ void	ft_error_exit(int i)
 		ft_printf("Invalid map! Not surrounded by walls!");
 	exit(1);
 }
+
+void	init_vars(t_var *vars)
+{
+	vars->count = 0;
+	vars->length = 0;
+	vars->exit_count = 0;
+	vars->start_count = 0;
+	vars->collectible_count = 0;
+	vars->player_pos_x = 0;
+	vars->player_pos_y = 0;
+	vars->exit_pos_x = 0;
+	vars->exit_pos_y = 0;
+	vars->index = 0;
+	vars->num = 0;
+}
