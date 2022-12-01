@@ -12,13 +12,35 @@
 
 #include "so_long.h"
 
+int    ft_find_it(int x, int y, t_var *vars)
+{
+    if (x == vars->e_x &&
+        y == vars->e_y)
+    {
+        return 1;
+    }
+    if (vars->arr[x][y] == 0)
+    {
+        if (ft_find_it(x + 1, y, &vars) == 0)
+            return 1;
+        if (ft_find_it(x, y + 1, &vars) == 0)
+            return 1;
+        if (ft_find_it(x - 1, y, &vars) == 0)
+            return 1;
+        if (ft_find_it(x, y - 1, &vars) == 0)
+            return 1;
+    }
+}
+
 void    ft_path(t_var *vars)
 {
-    int i;
+    int x;
+    int y;
 
-    i = 0;
-    while(vars->arr[i] != NULL)
+    x = vars->p_x;
+    y = vars->p_y;
+    while ()
     {
-        i++;
+        ft_find_it(x, y, &vars)
     }
 }

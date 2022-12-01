@@ -31,13 +31,16 @@ typedef struct s_var
 	int		exit_count;
 	int		start_count;
 	int		collectible_count;
-	int		player_pos_x;
-	int		player_pos_y;
-	int		exit_pos_x;
-	int		exit_pos_y;
+	int		e_x;
+	int		e_y;
 	int		index;
 	int		num;
 	char	**arr;
+
+	//pathfinding
+	int		p_x;
+	int		p_y;
+	
 }	t_var;
 
 char	*ft_strchr(const char *s, int c);

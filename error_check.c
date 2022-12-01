@@ -42,8 +42,8 @@ void	ft_check_map(t_var *vars)
 			if (vars->arr[vars->num][vars->index] == 'E')
 			{
 				vars->exit_count++;
-				vars->exit_pos_x = vars->index;
-				vars->exit_pos_y = vars->num;
+				vars->e_x = vars->index;
+				vars->e_y = vars->num;
 			}
 			else if (vars->arr[vars->num][vars->index] == 'C')
 				vars->collectible_count++;
@@ -60,8 +60,8 @@ void	ft_unnetig(t_var *vars)
 	if (vars->arr[vars->num][vars->index] == 'P')
 	{
 		vars->start_count++;
-		vars->player_pos_x = vars->index;
-		vars->player_pos_y = vars->num;
+		vars->p_x = vars->index;
+		vars->p_y = vars->num;
 	}
 	else if (vars->arr[vars->num][vars->index] != '1' &&
 			vars->arr[vars->num][vars->index] != '0' &&
