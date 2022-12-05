@@ -27,6 +27,8 @@ void	ft_error_exit(int i)
 		ft_printf("Invalid map! Not rectangular!");
 	else if (i == -6)
 		ft_printf("Invalid map! Not surrounded by walls!");
+	else if (i == -7)
+		ft_printf("Invalid map! Not a valid path!");
 	exit(1);
 }
 

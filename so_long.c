@@ -59,6 +59,7 @@ void	put_arr(int fd, t_var *vars)
 		j++;
 	}
 	free(line);
+	close(fd);
 }
 
 int	main(void)
@@ -77,6 +78,7 @@ int	main(void)
 		ft_printf("%s\n", vars.arr[i]);
 		i++;
 	}
+	i = 0;
 	close(fd);
 	return (0);
 }

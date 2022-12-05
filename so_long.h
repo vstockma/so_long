@@ -36,6 +36,7 @@ typedef struct s_var
 	int		index;
 	int		num;
 	char	**arr;
+	char	**copy;
 
 	//pathfinding
 	int		p_x;
@@ -82,5 +83,7 @@ void	init_vars(t_var *vars);			//initialising vars of my list
 
 //pathfinding.c
 void    ft_path(t_var *vars);			//
+void    ft_copy_array(t_var *vars);
+int    ft_find_it(int x, int y, t_var *vars);
 
 #endif
