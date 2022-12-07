@@ -16,6 +16,7 @@
 #  define BUFFER_SIZE 1
 # endif
 
+# include "minilibx/mlx.h"
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdarg.h>
@@ -31,17 +32,16 @@ typedef struct s_var
 	int		exit_count;
 	int		start_count;
 	int		collectible_count;
-	int		e_x;
-	int		e_y;
 	int		index;
 	int		num;
 	char	**arr;
 	char	**copy;
-
-	//pathfinding
 	int		p_x;
 	int		p_y;
-	
+	int		e_x;
+	int		e_y;
+	int		find_val;
+	char	*line;
 }	t_var;
 
 char	*ft_strchr(const char *s, int c);
@@ -78,7 +78,7 @@ void	ft_check_walls(t_var *vars);	//checking if the map is surounded by walls
 void	ft_unnetig(t_var *vars);		//subfunction of "ft_check_map" cause of lines
 
 //error_message.c
-void	ft_error_exit(int i);			//error messages
+void	ft_error_exit(int i, t_var *vars);			//error messages
 void	init_vars(t_var *vars);			//initialising vars of my list
 
 //pathfinding.c
