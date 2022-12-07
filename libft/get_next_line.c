@@ -5,103 +5,111 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: vstockma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/24 13:37:20 by vstockma          #+#    #+#             */
-/*   Updated: 2022/10/24 13:37:34 by vstockma         ###   ########.fr       */
+/*   Created: 2022/12/07 12:27:38 by vstockma          #+#    #+#             */
+/*   Updated: 2022/12/07 12:30:32 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_next(char *buff)
+char	*ft_new_read(char *store_buf)
 {
-	char	*newbuff;
-	int		i;
-	int		j;
+	size_t	len;
+	size_t	i;
+	char	*tmp;
 
+	len = 0;
 	i = 0;
-	j = 0;
-	while (buff[i] && buff[i] != '\n')
+	while (store_buf[i] != '\n' && store_buf[i] != '\0')
 		i++;
-	if (!buff[i])
+	if (!store_buf[i])
 	{
-		free(buff);
+		free(store_buf);
 		return (NULL);
 	}
-	newbuff = ft_calloc((ft_strlen_gnl(buff) - i + 1), 1);
+	tmp = malloc (sizeof(char) * (ft_strlen_gnl(store_buf) - i));
+	if (tmp == NULL)
+	{
+		free (store_buf);
+		return (NULL);
+	}
 	i++;
-	while (buff[i])
-		newbuff[j++] = buff[i++];
-	free(buff);
-	return (newbuff);
+	while (store_buf[i] != '\0')
+		tmp[len++] = store_buf[i++];
+	tmp[len] = '\0';
+	free(store_buf);
+	return (tmp);
 }
 
-char	*ft_line(char *buff)
+char	*ft_read_from_file(int fd, char *store_buf)
 {
-	char	*line;
-	int		i;
+	int		read_len;
+	char	*buf;
 
-	i = 0;
-	if (!buff[i])
+	buf = malloc (sizeof(char) * BUFFER_SIZE + 1);
+	if (buf == NULL)
 		return (NULL);
-	while (buff[i] && buff[i] != '\n')
-		i++;
-	if (buff[i] == '\0')
-		line = ft_calloc (i + 1, 1);
-	else if (buff[i] == '\n')
-		line = ft_calloc (i + 2, 1);
-	i = 0;
-	while (buff[i] && buff[i] != '\n')
+	read_len = 1;
+	while (read_len != 0 && ft_strchr_gnl(store_buf, '\n') == 0)
 	{
-		line[i] = buff[i];
-		i++;
-	}
-	line[i] = '\0';
-	return (line);
-}
-
-char	*ft_read_fd(int fd, char *buff)
-{
-	char	*temp;
-	char	*str;
-	int		n;
-
-	if (!buff)
-		buff = ft_calloc(1, 1);
-	n = 1;
-	str = ft_calloc(BUFFER_SIZE + 1, 1);
-	while (n > 0 && !ft_strchr_gnl(str, '\n'))
-	{
-		n = read(fd, str, BUFFER_SIZE);
-		if (n == -1)
+		read_len = read(fd, buf, BUFFER_SIZE);
+		if (read_len == -1)
 		{
-			free(str);
+			free (buf);
+			free (store_buf);
 			return (NULL);
 		}
-		str[n] = '\0';
-		temp = ft_strjoin_gnl(buff, str);
-		free(buff);
-		buff = temp;
+		buf[read_len] = '\0';
+		store_buf = ft_strjoin_gnl(store_buf, buf);
 	}
-	free(str);
-	return (buff);
+	free (buf);
+	return (store_buf);
+}
+
+char	*ft_get_line(char *store_buf)
+{
+	char	*new;
+	int		i;
+
+	i = 0;
+	if (store_buf[i] == '\0')
+		return (NULL);
+	while (store_buf[i] != '\n' && store_buf[i] != '\0')
+		i++;
+	new = malloc (sizeof(char) * (i + 2));
+	if (new == NULL)
+		return (NULL);
+	i = 0;
+	while (store_buf[i] != '\n' && store_buf[i] != '\0')
+	{
+		new[i] = store_buf[i];
+		i++;
+	}
+	new[i] = '\0';
+	return (new);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*buff;
 	char		*line;
+	static char	*store_buf;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 	{
-		if (buff != NULL)
-			free (buff);
-		buff = NULL;
+		free(store_buf);
+		store_buf = NULL;
 		return (NULL);
 	}
-	buff = ft_read_fd(fd, buff);
-	if (!buff)
+	store_buf = ft_read_from_file(fd, store_buf);
+	if (store_buf == NULL)
+	{
+		free(store_buf);
+		store_buf = NULL;
 		return (NULL);
-	line = ft_line(buff);
-	buff = ft_next(buff);
+	}
+	line = ft_get_line(store_buf);
+	if (store_buf == NULL)
+		return (line);
+	store_buf = ft_new_read(store_buf);
 	return (line);
 }

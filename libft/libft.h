@@ -84,7 +84,7 @@ int		ft_putxupper(va_list args);
 int		ft_putp(va_list args);
 
 char	*get_next_line(int fd);
-int		ft_strlen_gnl(char *str);
+size_t	ft_strlen_gnl(char *s);
 char	*ft_strchr_gnl(char *s, int c);
 char	*ft_strjoin_gnl(char *s1, char *s2);
 

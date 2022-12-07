@@ -12,7 +12,7 @@
 
 #include "so_long.h"
 
-void	ft_error_exit(int i)
+void	ft_error_exit(int i, t_var *vars)
 {
 	ft_printf("Error\n");
 	if (i == -1)
@@ -28,7 +28,11 @@ void	ft_error_exit(int i)
 	else if (i == -6)
 		ft_printf("Invalid map! Not surrounded by walls!");
 	else if (i == -7)
-		ft_printf("Invalid map! Not a valid path!");
+		ft_printf("Invalid map! There is no valid path!");
+	else if (i == -8)
+		ft_printf("File descriptor Error!");
+	free(vars->arr);
+	free(vars->copy);
 	exit(1);
 }
 
@@ -45,4 +49,5 @@ void	init_vars(t_var *vars)
 	vars->e_y = 0;
 	vars->index = 0;
 	vars->num = 0;
+	vars->find_val = 0;
 }

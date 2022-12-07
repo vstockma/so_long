@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_check.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vstockma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 11:13:32 by vstockma          #+#    #+#             */
-/*   Updated: 2022/11/25 11:13:35 by vstockma         ###   ########.fr       */
+/*   Updated: 2022/12/07 14:24:07 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_check_rect(t_var *vars)
 			break ;
 		vars->length = ft_strlen(vars->arr[i]);
 		if (vars->length != comp)
-			ft_error_exit(-5);
+			ft_error_exit(-5, vars);
 		i++;
 	}
 }
@@ -64,21 +64,21 @@ void	ft_unnetig(t_var *vars)
 		vars->p_y = vars->num;
 	}
 	else if (vars->arr[vars->num][vars->index] != '1' &&
-			vars->arr[vars->num][vars->index] != '0' &&
-			vars->arr[vars->num][vars->index] != 'E' &&
-			vars->arr[vars->num][vars->index] != 'C' &&
-			vars->arr[vars->num][vars->index] != 'P')
-		ft_error_exit(-1);
+				vars->arr[vars->num][vars->index] != '0' &&
+				vars->arr[vars->num][vars->index] != 'E' &&
+				vars->arr[vars->num][vars->index] != 'C' &&
+				vars->arr[vars->num][vars->index] != 'P')
+		ft_error_exit(-1, vars);
 }
 
 void	ft_counts(t_var *vars)
 {
 	if (vars->exit_count != 1)
-		ft_error_exit(-2);
+		ft_error_exit(-2, vars);
 	if (vars->collectible_count < 1)
-		ft_error_exit(-3);
+		ft_error_exit(-3, vars);
 	if (vars->start_count != 1)
-		ft_error_exit(-4);
+		ft_error_exit(-4, vars);
 }
 
 void	ft_check_walls(t_var *vars)
@@ -93,12 +93,12 @@ void	ft_check_walls(t_var *vars)
 		while (i < vars->length)
 		{
 			if (vars->arr[0][i] != '1')
-				ft_error_exit(-6);
+				ft_error_exit(-6, vars);
 			else if (vars->arr[vars->count - 1][i] != '1')
-				ft_error_exit(-6);
+				ft_error_exit(-6, vars);
 			else if (vars->arr[j][0] != '1' ||
-				vars->arr[j][vars->length - 1] != '1')
-				ft_error_exit(-6);
+						vars->arr[j][vars->length - 1] != '1')
+				ft_error_exit(-6, vars);
 			i++;
 		}
 		j++;

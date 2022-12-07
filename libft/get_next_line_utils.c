@@ -5,63 +5,65 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: vstockma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/24 13:38:00 by vstockma          #+#    #+#             */
-/*   Updated: 2022/10/24 13:38:02 by vstockma         ###   ########.fr       */
+/*   Created: 2022/12/07 12:30:45 by vstockma          #+#    #+#             */
+/*   Updated: 2022/12/07 12:31:10 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strlen_gnl(char *str)
+size_t	ft_strlen_gnl(char *s)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
-	while (str[i])
+	if (!s)
+		return (0);
+	while (s[i] != '\0')
 		i++;
 	return (i);
 }
 
-char	*ft_strchr_gnl(char *s, int c)
-{
-	unsigned int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		if (s[i] == (char)c)
-			return ((char *)&s[i]);
-		i++;
-	}
-	if ((char)c == s[i])
-		return ((char *)&s[i]);
-	return (NULL);
-}
-
 char	*ft_strjoin_gnl(char *s1, char *s2)
 {
-	int		sizetotal;
-	char	*res;
+	char	*new;
 	int		i;
 	int		j;
 
 	i = 0;
-	sizetotal = ft_strlen(s1) + ft_strlen(s2);
-	res = malloc(sizeof(char) * (sizetotal + 1));
-	if (!res || !s1 || !s2)
-		return (NULL);
-	while (s1[i] != 0)
-	{
-		res[i] = s1[i];
-		i++;
-	}
 	j = 0;
-	while (s2[j] != 0)
+	if (!s1)
 	{
-		res[i] = s2[j];
-		i++;
-		j++;
+		s1 = malloc(sizeof(char) * 1);
+		s1[i] = '\0';
 	}
-	res[sizetotal] = 0;
-	return (res);
+	new = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2)) + 1);
+	if (new == NULL)
+		return (NULL);
+	while (s1[i] != '\0')
+	{
+		new[i] = s1[i];
+		i++;
+	}
+	while (s2[j] != '\0')
+		new[i++] = s2[j++];
+	new[i] = '\0';
+	free (s1);
+	return (new);
+}
+
+char	*ft_strchr_gnl(char *s, int c)
+{
+	int	i;
+
+	if (!s)
+		return (NULL);
+	i = ft_strlen(s) + 1;
+	while (i--)
+	{
+		if (*s == (char) c)
+			return ((char *) s);
+		s++;
+	}
+	return (0);
 }

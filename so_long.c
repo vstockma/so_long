@@ -27,38 +27,39 @@ void	linecount(int fd, t_var *vars)
 	char	*line;
 
 	n = 1;
-	line = ft_calloc(1, 1);
+	line = malloc(2);
 	while (n > 0)
 	{
 		n = read(fd, line, BUFFER_SIZE);
 		if (n == -1)
 		{
 			free(line);
+			ft_error_exit(-8, vars);
 		}
+		line[n] = '\0';
 		if (ft_strchr(line, '\n'))
 			vars->count++;
 	}
 	vars->count++;
+	free(line);
+	line = NULL;
 	close(fd);
 }
 
 void	put_arr(int fd, t_var *vars)
 {
-	char	*line;
 	int		j;
 
 	j = 0;
 	linecount(fd, vars);
 	fd = open("map_descriptor.ber", O_RDONLY);
-	vars->arr = malloc(sizeof(char *) * vars->count);
-	line = ft_calloc(1, 1);
-	while (line != NULL)
+	vars->arr = malloc(sizeof(char *) * (vars->count + 1));
+	while (j < vars->count)
 	{
-		line = get_next_line(fd);
-		vars->arr[j] = line;
+		vars->arr[j] = get_next_line(fd);
 		j++;
 	}
-	free(line);
+	vars->arr[vars->count] = NULL;
 	close(fd);
 }
 
@@ -66,19 +67,20 @@ int	main(void)
 {
 	int		fd;
 	t_var	vars;
-	int		i;
 
-	i = 0;
 	init_vars(&vars);
 	fd = open("map_descriptor.ber", O_RDONLY);
-	put_arr(fd, &vars);
+	put_arr(fd, &vars);	
 	ft_error_check(&vars);
-	while (i < vars.count)
-	{
-		ft_printf("%s\n", vars.arr[i]);
-		i++;
-	}
-	i = 0;
+	
+	ft_printf("%s\n", vars.arr[0]);
+	ft_printf("%s\n", vars.arr[1]);
+	ft_printf("%s\n", vars.arr[2]);
+	ft_printf("%s\n", vars.arr[3]);
+	ft_printf("%s\n", vars.arr[4]);
+	
+	free(vars.arr[0]);
+	free(vars.arr[1]);
 	close(fd);
 	return (0);
 }
