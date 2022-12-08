@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vstockma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:44:44 by vstockma          #+#    #+#             */
-/*   Updated: 2022/11/17 12:44:46 by vstockma         ###   ########.fr       */
+/*   Updated: 2022/12/08 12:07:52 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	linecount(int fd, t_var *vars)
 
 void	put_arr(int fd, t_var *vars)
 {
-	int		j;
+	int	j;
 
 	j = 0;
 	linecount(fd, vars);
@@ -70,17 +70,29 @@ int	main(void)
 
 	init_vars(&vars);
 	fd = open("map_descriptor.ber", O_RDONLY);
-	put_arr(fd, &vars);	
+	put_arr(fd, &vars);
 	ft_error_check(&vars);
-	
 	ft_printf("%s\n", vars.arr[0]);
 	ft_printf("%s\n", vars.arr[1]);
 	ft_printf("%s\n", vars.arr[2]);
 	ft_printf("%s\n", vars.arr[3]);
 	ft_printf("%s\n", vars.arr[4]);
-	
-	free(vars.arr[0]);
-	free(vars.arr[1]);
+	ft_free_all(&vars);
 	close(fd);
 	return (0);
+}
+
+void	ft_free_all(t_var *vars)
+{
+	int i;
+
+	i = 0;
+	while (i < vars->count)
+	{
+		free(vars->arr[i]);
+		free(vars->copy[i]);
+		i++;
+	}
+	free(vars->arr);
+	free(vars->copy);
 }

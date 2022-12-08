@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_message.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vstockma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 12:50:03 by vstockma          #+#    #+#             */
-/*   Updated: 2022/11/25 12:50:05 by vstockma         ###   ########.fr       */
+/*   Updated: 2022/12/08 12:08:01 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,7 @@ void	ft_error_exit(int i, t_var *vars)
 		ft_printf("Invalid map! There is no valid path!");
 	else if (i == -8)
 		ft_printf("File descriptor Error!");
-	free(vars->arr);
-	free(vars->copy);
+	ft_free_all(vars);
 	exit(1);
 }
 
