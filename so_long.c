@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:44:44 by vstockma          #+#    #+#             */
-/*   Updated: 2022/12/08 12:07:52 by valentin         ###   ########.fr       */
+/*   Updated: 2022/12/09 11:15:45 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	linecount(int fd, t_var *vars)
 		n = read(fd, line, BUFFER_SIZE);
 		if (n == -1)
 		{
-			free(line);
+			
 			ft_error_exit(-8, vars);
 		}
 		line[n] = '\0';
@@ -80,19 +80,5 @@ int	main(void)
 	ft_free_all(&vars);
 	close(fd);
 	return (0);
-}
-
-void	ft_free_all(t_var *vars)
-{
-	int i;
-
-	i = 0;
-	while (i < vars->count)
-	{
-		free(vars->arr[i]);
-		free(vars->copy[i]);
-		i++;
-	}
-	free(vars->arr);
-	free(vars->copy);
+	
 }

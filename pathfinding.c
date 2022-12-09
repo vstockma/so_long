@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pathfinding.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vstockma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 15:15:45 by vstockma          #+#    #+#             */
-/*   Updated: 2022/11/30 15:15:49 by vstockma         ###   ########.fr       */
+/*   Updated: 2022/12/09 11:10:34 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	ft_path(t_var *vars)
 	vars->find_val = ft_find_it(x, y, vars);
 	if (vars->find_val == 1)
 		ft_error_exit(-7, vars);
-	free(vars->copy);
 }
 
 void	ft_copy_array(t_var *vars)

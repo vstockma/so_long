@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vstockma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 11:05:52 by vstockma          #+#    #+#             */
-/*   Updated: 2022/10/05 11:06:02 by vstockma         ###   ########.fr       */
+/*   Updated: 2022/12/09 11:04:20 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void	ft_unnetig(t_var *vars);		//subfunction of "ft_check_map" cause of lines
 //error_message.c
 void	ft_error_exit(int i, t_var *vars);			//error messages
 void	init_vars(t_var *vars);			//initialising vars of my list
+void	ft_free_all(t_var *vars);		//free memory
 
 //pathfinding.c
 void    ft_path(t_var *vars);			//

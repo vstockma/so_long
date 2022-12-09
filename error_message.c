@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_message.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 12:50:03 by vstockma          #+#    #+#             */
-/*   Updated: 2022/12/08 12:08:01 by valentin         ###   ########.fr       */
+/*   Updated: 2022/12/09 11:17:16 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,19 @@ void	init_vars(t_var *vars)
 	vars->index = 0;
 	vars->num = 0;
 	vars->find_val = 0;
+}
+
+void	ft_free_all(t_var *vars)
+{
+	int i;
+
+	i = 0;
+	while (i < vars->count)
+	{
+		free(vars->arr[i]);
+		free(vars->copy[i]);
+		i++;
+	}
+	free(vars->arr);
+	free(vars->copy);
 }
