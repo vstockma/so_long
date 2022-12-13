@@ -6,7 +6,7 @@
 #    By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/05 11:20:33 by vstockma          #+#    #+#              #
-#    Updated: 2022/12/07 15:12:26 by vstockma         ###   ########.fr        #
+#    Updated: 2022/12/13 12:41:50 by vstockma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,23 +22,15 @@ CC = cc
 
 RM = rm -f
 
-MLX_PATH = minilibx/
+MLX_PATH = mlx/
 
 MLX_LIB = $(MLX_PATH)libmlx.a
 
-MLX_FLAGS = -lXext -lX11 -Lmlx -lmlx -framework OpenGL -framework AppKit
+MLX_FLAGS = -lXext -lX11 -lm -lpthread -ldl -fPIE
 
 LIBFT_PATH = libft/
 
 LIBFT_LIB = $(LIBFT_PATH)libft.a
-
-Y = "\033[33m"
-R = "\033[31m"
-G = "\033[32m"
-B = "\033[34m"
-X = "\033[0m"
-UP = "\033[A"
-CUT = "\033[K"
 
 .PHONY: all clean fclean re
 
@@ -54,16 +46,16 @@ comp:
 	make -C $(MLX_PATH) all
 
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) $(MLX_LIB) $(MLX_FLAGS) $(LIBFT_LIB) -o $(NAME)
+	$(CC) $(CFLAGS) $(MLX_FLAGS) $(OBJ) $(MLX_LIB) $(LIBFT_LIB) -o $(NAME)
 
 clean:
+	@$(RM) $(OBJ)
 	@make -C $(LIBFT_PATH) clean
 	@make -C $(MLX_PATH) clean
-	@$(RM) $(OBJ)
 
 fclean: clean
+	$(RM) $(NAME)
 	@make -C $(LIBFT_PATH) fclean
 	@make -C $(MLX_PATH) fclean
-	$(RM) $(NAME)
 
 re: fclean all
