@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 11:05:52 by vstockma          #+#    #+#             */
-/*   Updated: 2022/12/09 11:04:20 by vstockma         ###   ########.fr       */
+/*   Updated: 2022/12/12 13:05:48 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #  define BUFFER_SIZE 1
 # endif
 
-# include "minilibx/mlx.h"
+# include "mlx/mlx.h"
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdarg.h>
