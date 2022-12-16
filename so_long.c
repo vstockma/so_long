@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:44:44 by vstockma          #+#    #+#             */
-/*   Updated: 2022/12/12 12:42:11 by vstockma         ###   ########.fr       */
+/*   Updated: 2022/12/16 11:51:35 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,22 +63,23 @@ void	put_arr(int fd, t_var *vars)
 	close(fd);
 }
 
-int	main(void)
+int	main(int ac, char **av)
 {
 	int		fd;
 	t_var	vars;
 
+	if (ac != 2)
+		return (0);
+	if (ft_checkfile(av[1]) == 1)
+		return(0);
+	fd = open(av[1], O_RDONLY);
 	init_vars(&vars);
-	fd = open("map_descriptor.ber", O_RDONLY);
 	put_arr(fd, &vars);
-	ft_error_check(&vars);
-	ft_printf("%s\n", vars.arr[0]);
-	ft_printf("%s\n", vars.arr[1]);
-	ft_printf("%s\n", vars.arr[2]);
-	ft_printf("%s\n", vars.arr[3]);
-	ft_printf("%s\n", vars.arr[4]);
-	ft_free_all(&vars);
+	if (vars.arr != NULL)
+	{
+		ft_mlx(vars);
+	}
+	exit(1);
 	close(fd);
 	return (0);
-	
 }

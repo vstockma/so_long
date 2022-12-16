@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 12:50:03 by vstockma          #+#    #+#             */
-/*   Updated: 2022/12/09 11:17:16 by vstockma         ###   ########.fr       */
+/*   Updated: 2022/12/16 12:39:22 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 void	ft_error_exit(int i, t_var *vars)
 {
 	ft_printf("Error\n");
-	if (i == -1)
+	if (i == 0)
+		ft_printf("Initialisation Error\n");
+	else if (i == -1)
 		ft_printf("Invalid map! Wrong characters!\n");
 	else if (i == -2)
 		ft_printf("Invalid map! Wrong amount of exits!");
@@ -31,8 +33,8 @@ void	ft_error_exit(int i, t_var *vars)
 		ft_printf("Invalid map! There is no valid path!");
 	else if (i == -8)
 		ft_printf("File descriptor Error!");
-	ft_free_all(vars);
-	exit(1);
+	free(vars->arr);
+	//ft_free_all(&vars);
 }
 
 void	init_vars(t_var *vars)
@@ -49,6 +51,9 @@ void	init_vars(t_var *vars)
 	vars->index = 0;
 	vars->num = 0;
 	vars->find_val = 0;
+	vars->moves = 0;
+	vars->lin = 0;
+	vars->col = 0;
 }
 
 void	ft_free_all(t_var *vars)
@@ -64,4 +69,31 @@ void	ft_free_all(t_var *vars)
 	}
 	free(vars->arr);
 	free(vars->copy);
+	mlx_destroy_window(vars->mlx, vars->win);
+	mlx_destroy_display(vars->mlx);
+}
+
+int	ft_checkfile(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '.')
+		{
+			i++;
+			if (str[i++] != 'b')
+				return (1);
+			if (str[i++] != 'e')
+				return (1);
+			if (str[i++] != 'r')
+				return (1);
+			if (str[i] != '\0')
+				return (1);
+		}
+		else
+			i++;
+	}
+	return (0);
 }

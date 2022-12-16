@@ -6,13 +6,13 @@
 #    By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/05 11:20:33 by vstockma          #+#    #+#              #
-#    Updated: 2022/12/13 12:41:50 by vstockma         ###   ########.fr        #
+#    Updated: 2022/12/16 11:49:03 by vstockma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = so_long.out
+NAME = so_long
 
-SRC = so_long.c error_check.c error_message.c pathfinding.c
+SRC = so_long.c error_check.c error_message.c pathfinding.c window.c image.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -46,7 +46,7 @@ comp:
 	make -C $(MLX_PATH) all
 
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $(MLX_FLAGS) $(OBJ) $(MLX_LIB) $(LIBFT_LIB) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) $(MLX_LIB) $(MLX_FLAGS) $(LIBFT_LIB) -o $(NAME)
 
 clean:
 	@$(RM) $(OBJ)

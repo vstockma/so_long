@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 11:05:52 by vstockma          #+#    #+#             */
-/*   Updated: 2022/12/12 13:05:48 by vstockma         ###   ########.fr       */
+/*   Updated: 2022/12/16 12:52:41 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,27 @@
 #  define BUFFER_SIZE 1
 # endif
 
+# define WINDOW_WIDTH 600
+# define WINDOW_HEIGHT 300
 # include "mlx/mlx.h"
+# include <X11/X.h>
+# include <X11/keysym.h>
 # include <unistd.h>
 # include <stdlib.h>
-# include <stdarg.h>
-# include <sys/types.h>
-# include <sys/stat.h>
 # include <fcntl.h>
+# include <stdbool.h>
 # include <stdio.h>
+# include <limits.h>
+
+typedef struct s_mlx
+{
+	void	*play;
+	void	*wall;
+	void	*coll;
+	void	*exit;
+	void	*empty;
+	
+}	t_mlx;
 
 typedef struct s_var
 {
@@ -42,6 +55,11 @@ typedef struct s_var
 	int		e_y;
 	int		find_val;
 	char	*line;
+	void	*mlx;
+	void	*win;
+	int		moves;
+	int		lin;
+	int		col;
 }	t_var;
 
 char	*ft_strchr(const char *s, int c);
@@ -81,10 +99,21 @@ void	ft_unnetig(t_var *vars);		//subfunction of "ft_check_map" cause of lines
 void	ft_error_exit(int i, t_var *vars);			//error messages
 void	init_vars(t_var *vars);			//initialising vars of my list
 void	ft_free_all(t_var *vars);		//free memory
+int		ft_checkfile(char *str);			//checking for ".ber" file
 
 //pathfinding.c
 void    ft_path(t_var *vars);			//
 void    ft_copy_array(t_var *vars);
 int    ft_find_it(int x, int y, t_var *vars);
+
+//window.c
+void	ft_mlx(t_var vars);
+int		key_hook(int keycode, t_var *vars);
+int	handle_input(int keysym, t_var *vars);
+
+//image.c
+void    ft_put_xpm(t_var *vars);
+void    ft_put_image(t_mlx *img, t_var *vars);
+void	ft_extantion(t_mlx *img, t_var *vars);
 
 #endif
