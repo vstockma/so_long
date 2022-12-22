@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 11:05:52 by vstockma          #+#    #+#             */
-/*   Updated: 2022/12/16 12:52:41 by vstockma         ###   ########.fr       */
+/*   Updated: 2022/12/22 16:25:53 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,16 @@
 
 # define WINDOW_WIDTH 600
 # define WINDOW_HEIGHT 300
+# define W 119
+# define A 97
+# define S 115
+# define D 100
+# define UP 65362
+# define LEFT 65361
+# define DOWN 65364
+# define RIGHT 65363
+
+
 # include "mlx/mlx.h"
 # include <X11/X.h>
 # include <X11/keysym.h>
@@ -60,6 +70,8 @@ typedef struct s_var
 	int		moves;
 	int		lin;
 	int		col;
+	int		end;
+	t_mlx	p;
 }	t_var;
 
 char	*ft_strchr(const char *s, int c);
@@ -109,11 +121,13 @@ int    ft_find_it(int x, int y, t_var *vars);
 //window.c
 void	ft_mlx(t_var vars);
 int		key_hook(int keycode, t_var *vars);
-int	handle_input(int keysym, t_var *vars);
+void	ft_move(t_var *vars, int line, int col, int key);
+int	ft_update(t_var *vars);
+int	ft_check_move(t_var *vars, int line, int col, int key);
 
 //image.c
 void    ft_put_xpm(t_var *vars);
-void    ft_put_image(t_mlx *img, t_var *vars);
-void	ft_extantion(t_mlx *img, t_var *vars);
+void    ft_put_image(t_var *vars);
+void	ft_extantion(t_var *vars);
 
 #endif

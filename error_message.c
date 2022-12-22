@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 12:50:03 by vstockma          #+#    #+#             */
-/*   Updated: 2022/12/16 12:39:22 by vstockma         ###   ########.fr       */
+/*   Updated: 2022/12/20 13:39:43 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,7 @@ void	init_vars(t_var *vars)
 	vars->num = 0;
 	vars->find_val = 0;
 	vars->moves = 0;
-	vars->lin = 0;
-	vars->col = 0;
+	vars->end = 0;
 }
 
 void	ft_free_all(t_var *vars)

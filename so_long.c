@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:44:44 by vstockma          #+#    #+#             */
-/*   Updated: 2022/12/16 11:51:35 by vstockma         ###   ########.fr       */
+/*   Updated: 2022/12/20 14:03:52 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int	main(int ac, char **av)
 	fd = open(av[1], O_RDONLY);
 	init_vars(&vars);
 	put_arr(fd, &vars);
+	ft_error_check(&vars);
 	if (vars.arr != NULL)
 	{
 		ft_mlx(vars);
