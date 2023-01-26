@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:44:44 by vstockma          #+#    #+#             */
-/*   Updated: 2022/12/20 14:03:52 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/01/13 14:00:00 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,11 @@ void	linecount(int fd, t_var *vars)
 	{
 		n = read(fd, line, BUFFER_SIZE);
 		if (n == -1)
-		{
-			
 			ft_error_exit(-8, vars);
-		}
 		line[n] = '\0';
 		if (ft_strchr(line, '\n'))
 			vars->count++;
 	}
-	vars->count++;
 	free(line);
 	line = NULL;
 	close(fd);
@@ -52,7 +48,7 @@ void	put_arr(int fd, t_var *vars)
 
 	j = 0;
 	linecount(fd, vars);
-	fd = open("map_descriptor.ber", O_RDONLY);
+	fd = open(vars->file, O_RDONLY);
 	vars->arr = malloc(sizeof(char *) * (vars->count + 1));
 	while (j < vars->count)
 	{
@@ -66,21 +62,21 @@ void	put_arr(int fd, t_var *vars)
 int	main(int ac, char **av)
 {
 	int		fd;
-	t_var	vars;
+	t_var	*vars;
 
+	vars = (t_var *)malloc(sizeof(t_var));
 	if (ac != 2)
-		return (0);
+		ft_first_error(vars);
 	if (ft_checkfile(av[1]) == 1)
-		return(0);
+		ft_first_error(vars);
 	fd = open(av[1], O_RDONLY);
-	init_vars(&vars);
-	put_arr(fd, &vars);
-	ft_error_check(&vars);
-	if (vars.arr != NULL)
-	{
+	init_vars(vars);
+	vars->file = av[1];
+	put_arr(fd, vars);
+	ft_error_check(vars);
+	if (vars->arr != NULL)
 		ft_mlx(vars);
-	}
-	exit(1);
 	close(fd);
+	ft_free(vars);
 	return (0);
 }

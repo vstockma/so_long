@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 11:13:32 by vstockma          #+#    #+#             */
-/*   Updated: 2022/12/09 11:09:57 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/01/13 12:17:27 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,16 +71,6 @@ void	ft_unnetig(t_var *vars)
 		ft_error_exit(-1, vars);
 }
 
-void	ft_counts(t_var *vars)
-{
-	if (vars->exit_count != 1)
-		ft_error_exit(-2, vars);
-	if (vars->collectible_count < 1)
-		ft_error_exit(-3, vars);
-	if (vars->start_count != 1)
-		ft_error_exit(-4, vars);
-}
-
 void	ft_check_walls(t_var *vars)
 {
 	int	i;
@@ -103,4 +93,31 @@ void	ft_check_walls(t_var *vars)
 		}
 		j++;
 	}
+}
+
+int	ft_checkfile(char *str)
+{
+	int	i;
+	int	count;
+
+	count = 0;
+	i = 0;
+	while (str[i])
+	{
+		if (str[i++] == '.')
+		{
+			if (str[i++] != 'b')
+				return (1);
+			if (str[i++] != 'e')
+				return (1);
+			if (str[i++] != 'r')
+				return (1);
+			if (str[i] != '\0')
+				return (1);
+			count++;
+		}
+	}
+	if (count == 0)
+		return (1);
+	return (0);
 }

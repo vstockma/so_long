@@ -6,13 +6,13 @@
 #    By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/05 11:20:33 by vstockma          #+#    #+#              #
-#    Updated: 2022/12/16 11:49:03 by vstockma         ###   ########.fr        #
+#    Updated: 2023/01/12 13:36:20 by vstockma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = so_long
 
-SRC = so_long.c error_check.c error_message.c pathfinding.c window.c image.c
+SRC = so_long.c error_check.c error_message.c pathfinding.c window.c image.c free.c
 
 OBJ = $(SRC:.c=.o)
 

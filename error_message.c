@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 12:50:03 by vstockma          #+#    #+#             */
-/*   Updated: 2022/12/20 13:39:43 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/01/13 13:59:43 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	ft_error_exit(int i, t_var *vars)
 {
+	(void)vars;
 	ft_printf("Error\n");
 	if (i == 0)
 		ft_printf("Initialisation Error\n");
@@ -29,70 +30,31 @@ void	ft_error_exit(int i, t_var *vars)
 		ft_printf("Invalid map! Not rectangular!");
 	else if (i == -6)
 		ft_printf("Invalid map! Not surrounded by walls!");
-	else if (i == -7)
-		ft_printf("Invalid map! There is no valid path!");
 	else if (i == -8)
 		ft_printf("File descriptor Error!");
-	free(vars->arr);
-	//ft_free_all(&vars);
+	ft_free_copy(vars);
 }
 
-void	init_vars(t_var *vars)
+void	ft_error_mess(int i, t_var *vars)
 {
-	vars->count = 0;
-	vars->length = 0;
-	vars->exit_count = 0;
-	vars->start_count = 0;
-	vars->collectible_count = 0;
-	vars->p_x = 0;
-	vars->p_y = 0;
-	vars->e_x = 0;
-	vars->e_y = 0;
-	vars->index = 0;
-	vars->num = 0;
-	vars->find_val = 0;
-	vars->moves = 0;
-	vars->end = 0;
+	if (i == -7)
+		ft_printf("Invalid map! There is no valid path!");
+	ft_free_me(vars);
 }
 
-void	ft_free_all(t_var *vars)
+void	ft_first_error(t_var *vars)
 {
-	int i;
-
-	i = 0;
-	while (i < vars->count)
-	{
-		free(vars->arr[i]);
-		free(vars->copy[i]);
-		i++;
-	}
-	free(vars->arr);
-	free(vars->copy);
-	mlx_destroy_window(vars->mlx, vars->win);
-	mlx_destroy_display(vars->mlx);
+	ft_printf("Error\nWrong file format!");
+	free(vars);
+	exit(0);
 }
 
-int	ft_checkfile(char *str)
+void	ft_counts(t_var *vars)
 {
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '.')
-		{
-			i++;
-			if (str[i++] != 'b')
-				return (1);
-			if (str[i++] != 'e')
-				return (1);
-			if (str[i++] != 'r')
-				return (1);
-			if (str[i] != '\0')
-				return (1);
-		}
-		else
-			i++;
-	}
-	return (0);
+	if (vars->exit_count != 1)
+		ft_error_exit(-2, vars);
+	if (vars->collectible_count < 1)
+		ft_error_exit(-3, vars);
+	if (vars->start_count != 1)
+		ft_error_exit(-4, vars);
 }
